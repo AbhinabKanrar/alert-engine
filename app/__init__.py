@@ -1,7 +1,8 @@
 from flask import Flask,request,jsonify
-from flask_sqlalchemy import SQLAlchemy
 from logging.config import dictConfig
-
+from flask_sqlalchemy import SQLAlchemy
+from py2neo import Graph
+from .model.entity.neo.site import Site
 import logging
 
 
@@ -33,3 +34,11 @@ db = SQLAlchemy(app)
 db.create_all()
 db.session.commit()
 
+url = 'http://localhost:7687'
+username = 'neo4j'
+password = 'password'
+
+graph = Graph(url + '/db/data/', username=username, password=password)
+
+site = Site(11,'322323232')
+# graph.push(site)
